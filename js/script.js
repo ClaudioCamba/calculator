@@ -54,7 +54,7 @@ function operate(num1, op, num2) {
 console.log(operate('2', '-', '2'))
 
 // Show clicked button on screen
-function storeVal(e) {
+function valStoreShow(e) {
     let isNum = /^\d+$/.test(this.textContent); // Using Regex to check if string is a number
 
     if (isNum) {
@@ -64,4 +64,4 @@ function storeVal(e) {
 }
 
 // Button click eventlistener
-calButtons.forEach((btn) => btn.addEventListener('click', storeVal));
+calButtons.forEach((btn) => btn.addEventListener('click', valStoreShow));
