@@ -28,3 +28,25 @@ function divide(a, b) {
 
 console.log(divide(100, 4));
 
+// Operate function
+function operate(num1, op, num2) {
+    let result;
+    switch (op) {
+        case '+':
+            result = add(parseFloat(num1), parseFloat(num2));
+            break;
+        case '-':
+            result = subtract(parseFloat(num1), parseFloat(num2));
+            break;
+        case '*':
+            result = multiply(parseFloat(num1), parseFloat(num2));
+            break;
+        case '/':
+            result = divide(parseFloat(num1), parseFloat(num2));
+            break;
+    }
+
+    return result;
+}
+
+console.log(operate('2', '-', '2'))
