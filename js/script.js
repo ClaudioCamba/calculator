@@ -1,4 +1,6 @@
-console.log('start');
+const calButtons = document.querySelectorAll('.cal-buttons li button');
+let domScreen = document.querySelector('.cal-screen'),
+    screenContent = [];
 
 // Add function
 function add(a, b) {
@@ -50,3 +52,16 @@ function operate(num1, op, num2) {
 }
 
 console.log(operate('2', '-', '2'))
+
+// Show clicked button on screen
+function storeVal(e) {
+    let isNum = /^\d+$/.test(this.textContent); // Using Regex to check if string is a number
+
+    if (isNum) {
+        screenContent.push(this.textContent);
+        domScreen.innerText = screenContent.join('');
+    }
+}
+
+// Button click eventlistener
+calButtons.forEach((btn) => btn.addEventListener('click', storeVal));
