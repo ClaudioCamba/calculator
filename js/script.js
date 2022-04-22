@@ -63,11 +63,16 @@ function valStoreShow(e) {
     let isNum = /^\d+$/.test(val); // Using Regex to check if string is a number
 
     // If its a number
-    if (isNum) { // Numbers
-        if (screenContent.operator.length === 0) {
-            screenContent.num1.push(parseFloat(val));
+    if (isNum || val === '.') { // Numbers
+        if (val === '.') {
+
+            if (screenContent.operator.length === 0) {
+                (screenContent.num1.includes('.') === false) ? screenContent.num1.push(val) : false;
+            } else {
+                (screenContent.num2.includes('.') === false) ? screenContent.num2.push(val) : false;
+            };
         } else {
-            screenContent.num2.push(parseFloat(val));
+            (screenContent.operator.length === 0) ? screenContent.num1.push(parseFloat(val)) : screenContent.num2.push(parseFloat(val));
         }
 
     } else if (val === 'AC') { // Clear & equals
@@ -81,8 +86,9 @@ function valStoreShow(e) {
             screenContent.num2 = [];
         } else {
             if (screenContent.num2.length > 0) {
-                let result = operate(screenContent.num1.join(''), screenContent.operator.join(''), screenContent.num2.join(''));
-                (result % 1 === 0) ? screenContent.num1 = [result] : screenContent.num1 = [result.toFixed(10)];
+                let result = operate(parseFloat(screenContent.num1.join('')), screenContent.operator.join(''), parseFloat(screenContent.num2.join('')));
+
+                (result % 1 === 0) ? screenContent.num1 = [parseFloat(result)] : screenContent.num1 = [parseFloat(result.toFixed(10))];
                 (val !== '=') ? screenContent.operator[0] = val : screenContent.operator = [];
                 screenContent.num2 = [];
             } else if (val !== '=') {
