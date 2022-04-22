@@ -65,9 +65,9 @@ function valStoreShow(e) {
     // If its a number
     if (isNum) { // Numbers
         if (screenContent.operator.length === 0) {
-            screenContent.num1.push(val);
+            screenContent.num1.push(parseFloat(val));
         } else {
-            screenContent.num2.push(val);
+            screenContent.num2.push(parseFloat(val));
         }
 
     } else if (val === 'AC') { // Clear & equals
@@ -75,13 +75,19 @@ function valStoreShow(e) {
         screenContent.operator = [];
         screenContent.num2 = [];
     } else { // Operators or equal
-
-        if (screenContent.num2.length > 0) {
-            screenContent.num1 = [operate(screenContent.num1.join(''), screenContent.operator.join(''), screenContent.num2.join(''))];
-            (val !== '=') ? screenContent.operator[0] = val : screenContent.operator = [];
+        if (screenContent.operator == '/' && screenContent.num2.reduce((total, num) => total + num) === 0 && val === '=') {
+            screenContent.num1 = ['INFINITY! TRY AGAIN...'];
+            screenContent.operator = [];
             screenContent.num2 = [];
-        } else if (val !== '=') {
-            screenContent.operator[0] = val;
+        } else {
+            if (screenContent.num2.length > 0) {
+                let result = operate(screenContent.num1.join(''), screenContent.operator.join(''), screenContent.num2.join(''));
+                (result % 1 === 0) ? screenContent.num1 = [result] : screenContent.num1 = [result.toFixed(10)];
+                (val !== '=') ? screenContent.operator[0] = val : screenContent.operator = [];
+                screenContent.num2 = [];
+            } else if (val !== '=') {
+                screenContent.operator[0] = val;
+            }
         }
     }
 
