@@ -1,6 +1,10 @@
 const calButtons = document.querySelectorAll('.cal-buttons li button');
-let domScreen = document.querySelector('.cal-screen'),
-    screenContent = [];
+const domScreen = document.querySelector('.cal-screen');
+let screenContent = {
+    num1: [],
+    operator: [],
+    num2: [],
+};
 
 // Add function
 function add(a, b) {
@@ -55,12 +59,35 @@ console.log(operate('2', '-', '2'))
 
 // Show clicked button on screen
 function valStoreShow(e) {
-    let isNum = /^\d+$/.test(this.textContent); // Using Regex to check if string is a number
+    let val = this.textContent;
+    let isNum = /^\d+$/.test(val); // Using Regex to check if string is a number
 
-    if (isNum) {
-        screenContent.push(this.textContent);
-        domScreen.innerText = screenContent.join('');
+    // If its a number
+    if (isNum) { // Numbers
+        if (screenContent.operator.length === 0) {
+            screenContent.num1.push(val);
+        } else {
+            screenContent.num2.push(val);
+        }
+
+    } else if (val === 'AC') { // Clear & equals
+        screenContent.num1 = [];
+        screenContent.operator = [];
+        screenContent.num2 = [];
+    } else { // Operators or equal
+
+        if (screenContent.num2.length > 0) {
+            screenContent.num1 = [operate(screenContent.num1.join(''), screenContent.operator.join(''), screenContent.num2.join(''))];
+            (val !== '=') ? screenContent.operator[0] = val : screenContent.operator = [];
+            screenContent.num2 = [];
+        } else if (val !== '=') {
+            screenContent.operator[0] = val;
+        }
     }
+
+    console.table(screenContent)
+    domScreen.textContent = screenContent.num1.join('') + screenContent.operator.join('') + screenContent.num2.join('');
+
 }
 
 // Button click eventlistener
