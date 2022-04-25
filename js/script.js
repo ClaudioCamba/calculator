@@ -47,8 +47,8 @@ function operate(num1, op, num2) {
     return result;
 }
 
+// Backspace function to erase most recent number/operator entered
 function backSpace() {
-    console.log('BACKSPACE')
     if (screenContent.num2.length > 0) {
         screenContent.num2.pop();
     } else if (screenContent.operator.length > 0) {
@@ -106,3 +106,27 @@ function valStoreShow(e) {
 
 // Button click eventlistener
 calButtons.forEach((btn) => btn.addEventListener('click', valStoreShow));
+
+// Keyboard eventlistner / Keyboard support
+window.document.addEventListener('keydown', function (e) {
+    let pressedKey = e.key
+
+    switch (pressedKey) {
+        case 'Backspace':
+            pressedKey = '<';
+            break;
+        case 'Escape':
+            pressedKey = 'AC';
+            break;
+        case 'Enter':
+            pressedKey = 'AC';
+            break;
+    }
+
+    for (const btn of calButtons) {
+        if (btn.textContent === pressedKey) {
+            btn.click();
+            break;
+        }
+    }
+});
