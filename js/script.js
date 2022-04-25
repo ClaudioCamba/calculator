@@ -128,7 +128,7 @@ window.document.addEventListener('keydown', function (e) {
     }
 });
 
-// Button click eventlistener
+// Button click eventlisteners
 calButtons.forEach((btn) => btn.addEventListener('click', valStoreShow));
 
 
