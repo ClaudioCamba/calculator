@@ -104,9 +104,6 @@ function valStoreShow(e) {
 
 }
 
-// Button click eventlistener
-calButtons.forEach((btn) => btn.addEventListener('click', valStoreShow));
-
 // Keyboard eventlistner / Keyboard support
 window.document.addEventListener('keydown', function (e) {
     let pressedKey = e.key
@@ -130,4 +127,9 @@ window.document.addEventListener('keydown', function (e) {
         }
     }
 });
+
+// Button click eventlistener
+calButtons.forEach((btn) => btn.addEventListener('click', valStoreShow));
+
+
 
