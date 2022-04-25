@@ -11,28 +11,20 @@ function add(a, b) {
     return a + b;
 }
 
-console.log(add(4, 6));
-
 // Subtract function
 function subtract(a, b) {
     return a - b;
 }
-
-console.log(subtract(10, 7));
 
 // multiply function
 function multiply(a, b) {
     return a * b;
 }
 
-console.log(multiply(5, 7));
-
 // divide function
 function divide(a, b) {
     return a / b;
 }
-
-console.log(divide(100, 4));
 
 // Operate function
 function operate(num1, op, num2) {
@@ -55,7 +47,16 @@ function operate(num1, op, num2) {
     return result;
 }
 
-console.log(operate('2', '-', '2'))
+function backSpace() {
+    console.log('BACKSPACE')
+    if (screenContent.num2.length > 0) {
+        screenContent.num2.pop();
+    } else if (screenContent.operator.length > 0) {
+        screenContent.operator.pop();
+    } else if (screenContent.num1.length > 0) {
+        screenContent.num1.pop();
+    }
+}
 
 // Show clicked button on screen
 function valStoreShow(e) {
@@ -65,7 +66,6 @@ function valStoreShow(e) {
     // If its a number
     if (isNum || val === '.') { // Numbers
         if (val === '.') {
-
             if (screenContent.operator.length === 0) {
                 (screenContent.num1.includes('.') === false) ? screenContent.num1.push(val) : false;
             } else {
@@ -79,6 +79,8 @@ function valStoreShow(e) {
         screenContent.num1 = [];
         screenContent.operator = [];
         screenContent.num2 = [];
+    } else if (val === '<') { // Clear & equals
+        backSpace();
     } else { // Operators or equal
         if (screenContent.operator == '/' && screenContent.num2.reduce((total, num) => total + num) === 0 && val === '=') {
             screenContent.num1 = ['INFINITY! TRY AGAIN...'];
